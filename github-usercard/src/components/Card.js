@@ -9,6 +9,7 @@ import {
 	Avatar,
 	Typography,
 	IconButton,
+	Tooltip,
 } from '@material-ui/core';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
@@ -37,12 +38,14 @@ class AppCard extends Component {
 						/>
 					}
 					action={
-						<IconButton
-							aria-label='settings'
-							onClick={() => this.props.changeUser(this.props.user.login)}
-						>
-							<AssignmentIndIcon />
-						</IconButton>
+						<Tooltip placement='bottom' title='See Following...'>
+							<IconButton
+								aria-label='settings'
+								onClick={() => this.props.changeUser(this.props.user.login)}
+							>
+								<AssignmentIndIcon />
+							</IconButton>
+						</Tooltip>
 					}
 					title={<Typography variant='h4'>{this.props.user.name}</Typography>}
 					subheader={
@@ -84,19 +87,21 @@ class AppCard extends Component {
 						justify-content: center;
 					`}
 				>
-					<a href={this.props.user.html_url}>
-						<img
-							src={`http://ghchart.rshah.org/${this.props.user.login}`}
-							alt={`${this.props.user.login}'s Github Chart`}
-							css={css`
-								width: 100%;
-								transition: all 0.5s ease;
-								&:hover {
-									box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-								}
-							`}
-						/>
-					</a>
+					<Tooltip placement='bottom' title='Go to repo...'>
+						<a href={this.props.user.html_url}>
+							<img
+								src={`http://ghchart.rshah.org/${this.props.user.login}`}
+								alt={`${this.props.user.login}'s Github Chart`}
+								css={css`
+									width: 100%;
+									transition: all 0.5s ease;
+									&:hover {
+										box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+									}
+								`}
+							/>
+						</a>
+					</Tooltip>
 				</CardContent>
 			</Card>
 		);

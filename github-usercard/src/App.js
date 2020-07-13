@@ -2,14 +2,9 @@
 import { css, jsx } from '@emotion/core';
 import { Component } from 'react';
 import axios from 'axios';
-import {
-	Container,
-	Grid,
-	Typography,
-	ThemeProvider,
-	CssBaseline,
-} from '@material-ui/core';
+import { Container, Grid, ThemeProvider, CssBaseline } from '@material-ui/core';
 import Card from './components/Card';
+import Header from './components/Header';
 import theme from './theme';
 import SearchBar from './components/SearchBar';
 import { Spring } from 'react-spring/renderprops';
@@ -80,6 +75,7 @@ export default class App extends Component {
 		return (
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
+				<Header />
 				<Spring
 					config={{
 						mass: 20,
@@ -91,17 +87,6 @@ export default class App extends Component {
 				>
 					{(props) => (
 						<Container style={props}>
-							<Typography
-								variant='h2'
-								component='h1'
-								color='primary'
-								align='center'
-								css={css`
-									padding: 1rem 0;
-								`}
-							>
-								Github Follower Cards
-							</Typography>
 							<Grid
 								container
 								css={css`
