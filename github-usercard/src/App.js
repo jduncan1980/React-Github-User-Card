@@ -23,18 +23,21 @@ export default class App extends Component {
 		this.setState({ user: newUser, users: [], profiles: [] });
 	};
 
+	//API Call to get initial user.
 	getUser = (user) => {
 		return axios.get(
 			`https://cors-anywhere.herokuapp.com/https://api.github.com/users/${user}`
 		);
 	};
 
+	//API Call to get initial users following.
 	getFollowers = (user) => {
 		return axios.get(
 			`https://cors-anywhere.herokuapp.com/https://api.github.com/users/${user}/following`
 		);
 	};
 
+	// Uses Promise.all to make both calls, sets to states, and then...
 	getAllUsers = () => {
 		Promise.all([
 			this.getUser(this.state.user),
@@ -45,6 +48,7 @@ export default class App extends Component {
 					return { users: [values[0].data, ...values[1].data] };
 				});
 			})
+			// ... makes another call to get full data for each user followed.
 			.then(() => {
 				this.state.users.forEach((user) => {
 					this.getUser(user.login).then((res) => {
@@ -60,10 +64,12 @@ export default class App extends Component {
 			.catch((err) => console.log(err));
 	};
 
+	// Gets all users when component initially mounts.
 	componentDidMount() {
 		this.getAllUsers();
 	}
 
+	// Gets new user and all info for that user's followers when new user is selected
 	componentDidUpdate(prevProps, prevState) {
 		if (this.state.user !== prevState.user) {
 			console.log('new user', this.state.user);
